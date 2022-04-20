@@ -1,25 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import UserList from './pages/UserList';
+import Layout from './utils/components/Layout';
+import './assets/styles/index.scss';
+import Container from './utils/components/Container';
+import React, { Suspense } from 'react';
+import { FC, lazy, useCallback, useEffect, useState } from 'react';
+import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
+import ROUTES from './const/routes';
 
-function App() {
+const UserListPage = lazy(() => import('./pages/UserList'));
+const UserProfilePage = lazy(() => import('./pages/UserProfile'));
+
+const App: FC = () => {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <Layout>
+        <Suspense fallback={(
+          <div style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            marginTop: '50vh',
+          }}
+          >
+            LOADING
+          </div>
+        )}>
+          <Switch>
+            <Route path={ROUTES.HOME} exact component={UserListPage} />
+            <Route path={ROUTES.PROFILE} component={UserProfilePage} />
+          </Switch>
+      </Suspense>
+      </Layout>
+    </Container>
   );
 }
 

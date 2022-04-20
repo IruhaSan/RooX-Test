@@ -1,0 +1,12 @@
+.root {
+    display: flex;
+    width: 100%;
+    align-items: flex-start;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 600px;
+}
